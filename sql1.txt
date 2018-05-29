@@ -1,0 +1,59 @@
+use master
+go
+
+/*Forma 1*/
+CREATE TABLE Cliente(
+	IdCliente char(5) NOT NULL,
+	NomCli varchar(50),
+	ApeCli varchar(50),
+	DirCli varchar(50),
+primary key(IdCliente)
+)
+select * From Cliente
+
+/*Forma 2*/
+CREATE TABLE Proveedor(
+	IdProveedor char(5) not null primary key,
+	NomProv varchar(20),
+	DirProv varchar(50)
+)
+
+/*Forma 3*/
+CREATE TABLE Articulo(
+	IdArticulo char(5) not null,
+	NomArt varchar(30),
+)
+
+ALTER TABLE Articulo ADD CONSTRAINT ClaveArt
+primary key(IdArticulo)
+
+CREATE TABLE Cuenta(
+	IdCuenta int not null identity (1,1),
+	IdCliente char(5) not null,
+	Saldo integer check (Saldo >= 0),
+	primary key (IdCuenta),
+	foreign key (IdCliente) references Cliente
+)
+
+select * from Cuenta
+
+insert into Cliente
+values ('12345', 'Pancho','Villa','Los Dinosaurios 123')
+
+insert into Cuenta values ('12345',100)
+
+ALTER TABLE articulo ADD
+Stock int null
+CONSTRAINT CHK_stock_Articulo
+CHECK (stock > 0 and stock < 100)
+
+select * from Articulo
+
+insert into Articulo values('0123456789','martillo',50)
+
+create database Prueba
+go
+
+use master
+
+drop database Prueba
